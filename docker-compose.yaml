@@ -14,11 +14,11 @@ services:
       MONGO_INITDB_DATABASE: library
 
 
-  library-app:
+  app:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: library-app
+    container_name: library
     ports:
       - "3000:3000"
     depends_on:

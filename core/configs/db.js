@@ -6,18 +6,22 @@ dotenv.config();
 
 const connectDB = async () => {
     try {
-        let mongoServer = await MongoMemoryServer.create();
-        let mongoURI = mongoServer.getUri();
+        let mongoServer;
+        let mongoURI;
 
-        if (process.env.NODE_ENV !== 'test') {
-            const mongoURI = process.env.MONGO_URI;
-            mongoServer = await mongoose.connect(mongoURI);
+        if (process.env.NODE_ENV === 'test') {
+            mongoServer = await MongoMemoryServer.create();
+            mongoURI = mongoServer.getUri();
+        } else {
+            mongoURI = process.env.MONGO_URI;
         }
+        console.log({ mongoURI })
         mongoServer = await mongoose.connect(mongoURI);
 
         return mongoServer;
     } catch (err) {
         console.log(`Error while connecting DB `, err);
+        throw err;
     }
 };
 

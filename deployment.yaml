@@ -1,44 +1,43 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: library-api-deployment
+  name: library-deployment
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: library-api
+      app: library
   template:
     metadata:
       labels:
-        app: library-api
+        app: library
     spec:
       containers:
-        - name: library-api
-          image: library-api:1
+        - name: library
+          image: library:1
           ports:
             - containerPort: 3000
           env:
             - name: MONGO_URI
-              value: mongodb://admin:12345@localhost:27017/library?authSource=admin
+              value: mongodb+srv://root:A7292080a@cluster0.i78r5.mongodb.net/library?retryWrites=true&w=majority
 
           resources:
             limits:
               cpu: "0.5"
               memory: "512Mi"
             requests:
-              cpu: "0.1"
+              cpu: "0.2"
               memory: "256Mi"
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: library-api-service
+  name: library-service
 spec:
   selector:
-    app: library-api
+    app: library
   ports:
-    - protocol: TCP
-      port: 30800
+    - port: 3000
       targetPort: 3000
   type: NodePort
