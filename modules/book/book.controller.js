@@ -24,8 +24,10 @@ module.exports = {
     getBooks: async (req, res) => {
         try {
 
-            const { page = 1, search = '' } = req.query;
-            const limit = 20;
+            const { page = 1, limit = 20, search = '' } = req.query;
+            if (limit > 50) {
+                limit = 50;
+            }
             const skip = Number(limit) * (Number(page) - 1);
 
             const books = await bookService.getBooks(skip, limit, search);

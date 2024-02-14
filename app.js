@@ -5,6 +5,7 @@ const { connectDB } = require('./core/configs/db');
 const libraryRoutes = require('./modules/book/book.route')
 const app = express();
 const PORT = process.env.PORT || 3000;
+const HOST = process.env.HOST || 'localhost';
 
 connectDB().then(() => {
     console.log(`MongoDB is connected`);
@@ -44,6 +45,8 @@ app.use((err, req, res, next) => {
     });
 });
 
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+const server = app.listen(PORT, () => {
+    console.log(`Server running on http://${HOST}:${PORT}`);
 });
+
+module.exports = { app, server };
