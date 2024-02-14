@@ -5,7 +5,6 @@ const { app, server } = require('../../app');
 let bookId;
 
 afterAll(async () => {
-    console.log()
     await mongoose.connection.close();
     server.close();
 });
@@ -58,7 +57,7 @@ describe('PATCH /api/v1.0.0/books/:id', () => {
             .send(updatedBookData);
 
         expect(res.status).toEqual(200);
-        expect(res.body.data).toHaveProperty('_id', bookId); // Assuming it returns the updated book data
+        expect(res.body.data).toHaveProperty('_id', bookId);
     });
 });
 

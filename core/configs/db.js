@@ -1,18 +1,20 @@
 const mongoose = require('mongoose');
+const { MongoMemoryServer } = require('mongodb-memory-server');
+
 const dotenv = require('dotenv');
 dotenv.config();
 
 const connectDB = async () => {
     try {
-        const mongoURI = process.env.MONGO_URI;
-        let mongoServer = await mongoose.connect(mongoURI);
+        let mongoServer = await MongoMemoryServer.create();
+        let mongoURI = mongoServer.getUri();
 
-
-        if (process.env.NODE_ENV === 'test') {
-            const mongoUri = mongoServer.getUri();
-            process.env.TEST_MONGO_URI = mongoUri;
-            mongoServer = await MongoMemoryServer.create();
+        if (process.env.NODE_ENV !== 'test') {
+            const mongoURI = process.env.MONGO_URI;
+            mongoServer = await mongoose.connect(mongoURI);
         }
+        mongoServer = await mongoose.connect(mongoURI);
+
         return mongoServer;
     } catch (err) {
         console.log(`Error while connecting DB `, err);
