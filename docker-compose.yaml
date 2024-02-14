@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  db:
+    image: mongo:5
+    container_name: db
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongo_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: 12345
+      MONGO_INITDB_DATABASE: library
+
+
+  library-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: library-app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
