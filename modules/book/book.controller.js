@@ -24,7 +24,7 @@ module.exports = {
     getBooks: async (req, res) => {
         try {
 
-            const { page = 1, limit = 20, search = '' } = req.query;
+            let { page = 1, limit = 20, search = '' } = req.query;
             if (limit > 50) {
                 limit = 50;
             }
