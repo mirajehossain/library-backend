@@ -13,7 +13,7 @@ module.exports = {
                 data: book
             });
         } catch (e) {
-            return res.status(e.code || 500).send({
+            return res.status(e.statusCode || 500).send({
                 success: false,
                 message: e.message,
                 error: e,
@@ -38,7 +38,7 @@ module.exports = {
                 data: books,
             });
         } catch (e) {
-            return res.status(e.code || 500).send({
+            return res.status(e.statusCode || 500).send({
                 success: false,
                 message: e.message,
                 error: e,
@@ -57,7 +57,7 @@ module.exports = {
                 data: book
             });
         } catch (e) {
-            return res.status(e.code || 500).send({
+            return res.status(e.statusCode || 500).send({
                 success: false,
                 message: e.message,
                 error: e,
@@ -77,7 +77,7 @@ module.exports = {
                 data: updatedBook
             });
         } catch (e) {
-            return res.status(e.code || 500).send({
+            return res.status(e.statusCode || 500).send({
                 success: false,
                 message: e.message,
                 error: e,

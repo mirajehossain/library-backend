@@ -16,10 +16,10 @@ spec:
         - name: library
           image: library:1
           ports:
-            - containerPort: 3000
+            - containerPort: 8000
           env:
             - name: MONGO_URI
-              value: mongodb+srv://root:A7292080a@cluster0.i78r5.mongodb.net/library?retryWrites=true&w=majority
+              value: mongodb://admin:12345@db:27017/library?authSource=admin
 
           resources:
             limits:
@@ -38,6 +38,6 @@ spec:
   selector:
     app: library
   ports:
-    - port: 3000
-      targetPort: 3000
+    - port: 8000
+      targetPort: 8000
   type: NodePort

@@ -9,7 +9,7 @@ module.exports = {
             const isBookExist = await BookModel.findOne({ slug: payload.slug });
             if (isBookExist) {
                 const error = new Error('Book is already exists');
-                error.code = 409;
+                error.statusCode = 409;
                 throw error;
             }
 
@@ -24,7 +24,7 @@ module.exports = {
 
     getBooks: async (skip = 0, limit = 20, search = '') => {
         try {
-            const books = await BookModel.find().skip(skip).limit(limit);
+            const books = await BookModel.find().sort({ createdAt: -1 }).skip(skip).limit(limit);
             console.log(`${limit} books returned.`);
             return books;
         } catch (e) {
@@ -37,7 +37,7 @@ module.exports = {
             const book = await BookModel.findOne({ _id: bookId });
             if (!book) {
                 const error = new Error('Book not found');
-                error.code = 400;
+                error.statusCode = 400;
                 throw error;
             }
             return book;
@@ -54,7 +54,7 @@ module.exports = {
             const book = await BookModel.findOne({ _id: bookId });
             if (!book) {
                 const error = new Error('Book not found');
-                error.code = 400;
+                error.statusCode = 400;
                 throw error;
             }
             const updatedBook = await BookModel.findOneAndUpdate({ _id: book._id }, payload, { new: true });
@@ -74,7 +74,7 @@ module.exports = {
 
             if (!book) {
                 const error = new Error('Book not found');
-                error.code = 400;
+                error.statusCode = 400;
                 throw error;
             }
             return await BookModel.deleteOne({ _id: book._id });
