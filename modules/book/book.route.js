@@ -9,6 +9,4 @@ router.get('/v1.0.0/books/:bookId', bookController.getBook);
 router.patch('/v1.0.0/books/:bookId', bookController.updateBook);
 router.delete('/v1.0.0/books/:bookId', bookController.deleteBook);
 
-
-
 module.exports = router;

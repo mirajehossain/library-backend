@@ -16,4 +16,4 @@ module.exports = {
         category: Joi.string(),
         summary: Joi.string(),
     }),
-}
+};

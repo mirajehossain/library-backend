@@ -20,24 +20,19 @@ describe('POST /api/v1.0.0/books', () => {
             title: `System design fundamental ${randomNumber(1, 1000)}`,
             publication: 'MR PUB',
             publicationYear: '2018',
-            category: 'Tech'
+            category: 'Tech',
         };
 
-        const res = await request(app)
-            .post('/api/v1.0.0/books')
-            .send(payload);
+        const res = await request(app).post('/api/v1.0.0/books').send(payload);
 
         bookId = res.body.data._id;
         expect(res.status).toBe(201);
     });
 });
 
-
 describe('GET /api/v1.0.0/books', () => {
     it('should return a list of books with pagination', async () => {
-        const res = await request(app)
-            .get('/api/v1.0.0/books')
-            .query({ page: 1, limit: 10 });
+        const res = await request(app).get('/api/v1.0.0/books').query({ page: 1, limit: 10 });
 
         expect(res.status).toBe(200);
         expect(Array.isArray(res.body.data)).toBe(true);
@@ -49,23 +44,19 @@ describe('PATCH /api/v1.0.0/books/:id', () => {
     it('should update a book', async () => {
         const updatedBookData = {
             author: 'Miraje H',
-            summary: 'system design handbook [updated]'
+            summary: 'system design handbook [updated]',
         };
 
-        const res = await request(app)
-            .patch(`/api/v1.0.0/books/${bookId}`)
-            .send(updatedBookData);
+        const res = await request(app).patch(`/api/v1.0.0/books/${bookId}`).send(updatedBookData);
 
         expect(res.status).toEqual(200);
         expect(res.body.data).toHaveProperty('_id', bookId);
     });
 });
 
-
 describe('DELETE /api/v1.0.0/books/:id', () => {
     it('should delete a book', async () => {
-        const res = await request(app)
-            .delete(`/api/v1.0.0/books/${bookId}`);
+        const res = await request(app).delete(`/api/v1.0.0/books/${bookId}`);
 
         expect(res.status).toEqual(200);
     });

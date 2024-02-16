@@ -14,17 +14,23 @@ module.exports = {
             }
 
             const book = await BookModel.create(payload);
-            console.log(`Book created ${book.slug}`)
+            console.log(`Book created ${book.slug}`);
             return book;
-
         } catch (e) {
             throw e;
         }
     },
 
-    getBooks: async (skip = 0, limit = 20, search = '') => {
+    getBooks: async (skip = 0, limit = 20, search = null) => {
         try {
-            const books = await BookModel.find().sort({ createdAt: -1 }).skip(skip).limit(limit);
+            const querySpec = {};
+            if (search) {
+                querySpec['$text'] = { $search: search, $caseSensitive: false };
+            }
+            const books = await BookModel.find(querySpec)
+                .sort({ createdAt: -1 })
+                .skip(skip)
+                .limit(limit);
             console.log(`${limit} books returned.`);
             return books;
         } catch (e) {
@@ -57,9 +63,10 @@ module.exports = {
                 error.statusCode = 400;
                 throw error;
             }
-            const updatedBook = await BookModel.findOneAndUpdate({ _id: book._id }, payload, { new: true });
+            const updatedBook = await BookModel.findOneAndUpdate({ _id: book._id }, payload, {
+                new: true,
+            });
             return updatedBook;
-
         } catch (e) {
             if (e.name === 'CastError') {
                 e.message = 'Invalid bookId';
@@ -78,12 +85,11 @@ module.exports = {
                 throw error;
             }
             return await BookModel.deleteOne({ _id: book._id });
-
         } catch (e) {
             if (e.name === 'CastError') {
-                e.message = 'Invalid bookId'
+                e.message = 'Invalid bookId';
             }
             throw e;
         }
-    }
-}
+    },
+};

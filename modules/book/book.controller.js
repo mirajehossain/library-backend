@@ -10,7 +10,7 @@ module.exports = {
             return res.status(201).send({
                 success: true,
                 message: 'Book is created successfully',
-                data: book
+                data: book,
             });
         } catch (e) {
             return res.status(e.statusCode || 500).send({
@@ -23,8 +23,7 @@ module.exports = {
 
     getBooks: async (req, res) => {
         try {
-
-            let { page = 1, limit = 20, search = '' } = req.query;
+            let { page = 1, limit = 20, search = null } = req.query;
             if (limit > 50) {
                 limit = 50;
             }
@@ -54,7 +53,7 @@ module.exports = {
             return res.status(200).send({
                 success: true,
                 message: 'Book fetched successfully',
-                data: book
+                data: book,
             });
         } catch (e) {
             return res.status(e.statusCode || 500).send({
@@ -74,7 +73,7 @@ module.exports = {
             return res.status(200).send({
                 success: true,
                 message: 'Book updated successfully',
-                data: updatedBook
+                data: updatedBook,
             });
         } catch (e) {
             return res.status(e.statusCode || 500).send({
@@ -82,7 +81,6 @@ module.exports = {
                 message: e.message,
                 error: e,
             });
-
         }
     },
 
@@ -101,5 +99,5 @@ module.exports = {
                 error: e,
             });
         }
-    }
-}
+    },
+};
