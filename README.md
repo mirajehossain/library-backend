@@ -73,7 +73,7 @@ docker compose up --build # run docker compose for build and start the service
 -   **Endpoint:** `GET /api/v1.0.0/books`
 -   **Query Parameters:**
     -   page: Page number for pagination.
-    -   limit: (optional): Limit per page, default 20. 
+    -   limit: (optional): Limit per page, default 20.
     -   search: (optional): Text based search on title
 -   **Response:**
 

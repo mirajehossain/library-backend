@@ -23,9 +23,9 @@ module.exports = {
 
     getBooks: async (skip = 0, limit = 20, search = null) => {
         try {
-            const querySpec = {};
+            let querySpec = {};
             if (search) {
-                querySpec['$text'] = { $search: search, $caseSensitive: false };
+                querySpec.title = { $regex: search, $options: 'i' };
             }
             const books = await BookModel.find(querySpec)
                 .sort({ createdAt: -1 })
