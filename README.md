@@ -186,9 +186,9 @@ There are several things that we can improve in current system.
 1. **Redis Cache Integration**: Utilizing Redis caching can improve application latency, reducing
    the need for repetitive database queries.
 
-2. **Additional Authorization**: Adding an extra authorization layer enhances security measures,
-   ensuring that only authorized users can access the application, and also mitigating unauthorized
-   access.
+2. **Additional Authentication & Authorization**: Adding an extra authentication and authorization
+   layer enhances security measures, ensuring that only authorized users can access the application,
+   and also mitigating unauthorized access.
 
 3. **Rate Limiting**: Implementing a rate limiter adds a layer of protection against DDoS attacks
    and malicious bot activity.
@@ -196,3 +196,12 @@ There are several things that we can improve in current system.
 4. **Soft Deletion Approach**: Currently, we hard-delete the data from the collection. I believe
    it's best practice to soft-delete rather than hard-delete any data in production. It's allow us
    to easier data recovery and maintaining data integrity over time.
+
+5. **Error Handling Interceptor/Middleware**: Currently, we lack a proper error-handling mechanism
+   to manage errors effectively. Implementing a custom error-handling functionality would enable us
+   to discern the type of error and determine the necessary steps to address it appropriately.
+
+6. **Logging**: Additionally, we can implement a logging mechanism for debugging
+   production issues and monitoring purposes. This system would allow us to trace each request with a unique requestId,
+   facilitating investigations when needed. I recommend using Winston for creating the logging
+   interceptor.
