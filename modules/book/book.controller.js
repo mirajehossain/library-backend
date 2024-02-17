@@ -93,7 +93,7 @@ module.exports = {
                 message: 'Book deleted successfully',
             });
         } catch (e) {
-            return res.status(e.code || 500).send({
+            return res.status(e.statusCode || 500).send({
                 success: false,
                 message: e.message,
                 error: e,
